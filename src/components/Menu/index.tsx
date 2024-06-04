@@ -13,8 +13,7 @@ import ArccodionOrder from "../Accordion";
 import { Label } from "../../models/Label";
 
 const Menu = ({ valueLabel, setValueLabel }: Label) => {
-  const { foods, drinks, orderPlaced } = useContext(MenuContext);
-  console.log("entrou no menu");
+  const { foods, drinks, ordersPlaced } = useContext(MenuContext);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValueLabel(newValue);
@@ -38,8 +37,8 @@ const Menu = ({ valueLabel, setValueLabel }: Label) => {
               <Tab
                 key={e.value}
                 label={
-                  e.value === "3" && orderPlaced.length > 0 ? (
-                    <Badge badgeContent={1} color="error">
+                  e.value === "3" && ordersPlaced.length > 0 ? (
+                    <Badge badgeContent={ordersPlaced.length} color="error">
                       <Typography
                         component="span"
                         variant="inherit"
@@ -80,7 +79,7 @@ const Menu = ({ valueLabel, setValueLabel }: Label) => {
           </Box>
         </TabPanel>
         <TabPanel value="3">
-          <ArccodionOrder items={orderPlaced} />
+          <ArccodionOrder />
         </TabPanel>
       </TabContext>
     </Box>

@@ -15,7 +15,7 @@ const routes: RouteObject[] = [
   },
   {
     path: "/teste",
-    element: <ArccodionOrder items={[]} />,
+    element: <ArccodionOrder />,
   },
   {
     path: "/orders",

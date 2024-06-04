@@ -1,40 +1,39 @@
-import { Accordion, AccordionDetails, Typography } from "@mui/material/";
+import { Accordion, AccordionDetails, Box, Typography } from "@mui/material/";
 
-import { Order } from "../../models/Order";
-import { useOrderResume } from "../../hooks/useOrderResume";
+import { MenuContext } from "../../context/MenuContext";
+import { useContext } from "react";
 
-type ArccodionOrderProps = {
-  items: Order[] | [];
-};
-
-const ArccodionOrder = ({ items }: ArccodionOrderProps) => {
-  const total = useOrderResume(items);
-
-  console.log(items);
-
+const ArccodionOrder = () => {
+  const { ordersPlaced } = useContext(MenuContext);
   return (
-    <div>
-      <Accordion>
-        <AccordionDetails sx={{ textAlign: "left" }}>
-          {items?.map((e, i) => (
-            <Typography variant="inherit" component="span">
-              {e.qty === 0 ? "" : e.qty} {e.qty === 0 ? "" : "-"}
-              {e.name}
-              {`Mesa: ${e.table}`}
-              <br />
-            </Typography>
-          ))}
-
-          <Typography component="span" variant="inherit" fontSize={17}>
-            {`Total: `}
-            <Typography color="#008000" fontSize={19} component="span">
-              {`${total}R$`}
-            </Typography>
-            <br />
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-    </div>
+    <Box>
+      {ordersPlaced.map((orderGroup, arrayIndex) => (
+        <Box key={arrayIndex}>
+          <Accordion sx={{ mt: 2 }}>
+            <AccordionDetails sx={{ textAlign: "left" }}>
+              {orderGroup.items.map((item, innerIndex) => (
+                <div key={innerIndex}>
+                  <Typography variant="inherit" component="span">
+                    {item.qty === 0 ? "" : item.qty} {item.qty === 0 ? "" : "-"}
+                    {item.name}
+                    <br />
+                  </Typography>
+                </div>
+              ))}
+              {orderGroup.table && (
+                <Typography variant="inherit" component="span">
+                  {`Mesa: ${orderGroup.table}`}
+                  <br />
+                </Typography>
+              )}
+              {orderGroup.totalPrice && (
+                <Typography>{`Total: ${orderGroup.totalPrice}R$`}</Typography>
+              )}
+            </AccordionDetails>
+          </Accordion>
+        </Box>
+      ))}
+    </Box>
   );
 };
 export default ArccodionOrder;

@@ -79,7 +79,7 @@ const PlaceOrders = ({ setValueLabel }: Label) => {
             </Typography>
           }
         />
-        <Button table={table} setValueLabel={setValueLabel} />
+        <Button table={table} setValueLabel={setValueLabel} totalPricee={totalPrice} />
       </Box>
       <Box mt={2} width={160} component="div">
         <img width={160} height={200} src={Lanche} alt="Hamburguer" />

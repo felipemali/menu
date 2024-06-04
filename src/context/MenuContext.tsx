@@ -7,6 +7,31 @@ import { Drink } from "../models/Drink";
 import { SnackProps } from "../models/Snack";
 import { Order } from "../models/Order";
 
+// export type ordersPlaced = {
+//   name: string;
+//   img: string;
+//   price: number;
+//   item: string;
+//   id: number;
+//   qty: number;
+//   table?: string;
+//   totalPrice?: number;
+// };
+export type OrderItem = {
+  name: string;
+  img: string;
+  price: number;
+  item: string;
+  id: number;
+  qty: number;
+};
+export type OrderGroup = {
+  items: OrderItem[];
+  table?: string;
+  totalPrice?: number;
+};
+export type OrdersPlaced = OrderGroup[];
+
 type MenuContextType = {
   foods: Food[];
   drinks: Drink[];
@@ -16,8 +41,8 @@ type MenuContextType = {
   setSnack: React.Dispatch<React.SetStateAction<SnackProps>>;
   order: Order[];
   setOrder: React.Dispatch<React.SetStateAction<Order[]>>;
-  orderPlaced: Order[];
-  setOrderPlaced: React.Dispatch<React.SetStateAction<Order[]>>;
+  ordersPlaced: OrdersPlaced;
+  setOrdersPlaced: React.Dispatch<React.SetStateAction<OrdersPlaced>>;
 };
 
 const initialValue: MenuContextType = {
@@ -33,8 +58,8 @@ const initialValue: MenuContextType = {
   setSnack: () => {},
   order: [],
   setOrder: () => {},
-  orderPlaced: [],
-  setOrderPlaced: () => {},
+  ordersPlaced: [],
+  setOrdersPlaced: () => {},
 };
 
 export const MenuContext = createContext<MenuContextType>(initialValue);
@@ -52,7 +77,7 @@ export const MenuContextProvider = ({ children }: Props) => {
     severity: undefined,
   });
   const [order, setOrder] = useState<Order[]>([]);
-  const [orderPlaced, setOrderPlaced] = useState<Order[]>([]);
+  const [ordersPlaced, setOrdersPlaced] = useState<OrdersPlaced>([]);
 
   useEffect(() => {
     const fetchFoods = () => setFoods(foodsData as Food[]);
@@ -61,6 +86,9 @@ export const MenuContextProvider = ({ children }: Props) => {
     fetchDrinks();
   }, []);
 
+  console.log("orderPlaced", ordersPlaced);
+  console.log("order", order);
+
   return (
     <MenuContext.Provider
       value={{
@@ -68,12 +96,12 @@ export const MenuContextProvider = ({ children }: Props) => {
         drinks,
         snack,
         order,
-        orderPlaced,
+        ordersPlaced,
         setFoods,
         setDrinks,
         setSnack,
         setOrder,
-        setOrderPlaced,
+        setOrdersPlaced,
       }}
     >
       {children}

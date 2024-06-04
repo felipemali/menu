@@ -8,14 +8,14 @@ import {
   Button as ButtonMui,
 } from "@mui/material";
 
-import { MenuContext } from "../../context/MenuContext";
+import { MenuContext, OrderGroup, OrderItem } from "../../context/MenuContext";
 import { handleClickSnack } from "../../hooks/handleClickSnack";
 import { css } from "./css";
 import { Label } from "../../models/Label";
-import { TableBar } from "@mui/icons-material";
+import { Order } from "../../models/Order";
 
-const Button = ({ setValueLabel, table }: Label) => {
-  const { setSnack, setOrder, setOrderPlaced, order, orderPlaced } =
+const Button = ({ setValueLabel, table, totalPricee }: Label) => {
+  const { setSnack, setOrder, setOrdersPlaced, order } =
     useContext(MenuContext);
   const [open, setOpen] = useState(false);
 
@@ -28,63 +28,69 @@ const Button = ({ setValueLabel, table }: Label) => {
     }, 1200);
     setOpen(true);
   };
+
+  const addOrder = (
+    order: OrderItem[],
+    table: string | undefined,
+    totalPricee: number | undefined
+  ) => {
+    const newOrderGroup: OrderGroup = {
+      items: order,
+      table: table,
+      totalPrice: totalPricee,
+    };
+
+    setOrdersPlaced((prevOrderPlaced: any) => [
+      ...prevOrderPlaced,
+      newOrderGroup,
+    ]);
+  };
+  // console.log("orderWithProperties", newOrderGroup);
+
   return (
     <Box display="flex" alignItems="center">
       <Box display="block" m="1rem auto 0 0">
         <Stack spacing={2} width="100%" ml={1}>
-          <ButtonMui
-            onClick={() => {
-              setOrderPlaced(
-                order.length > 0
-                  ? [
-                      ...order,
-                      {
-                        table: table,
-                        name: "",
-                        img: "",
-                        price: 0,
-                        item: "",
-                        id: 0,
-                        qty: 0,
-                      },
-                    ]
-                  : orderPlaced
-              );
-              handleClickSnack(
-                order.length > 0
-                  ? {
-                      text: "Pedido enviado",
-                      setSnack,
-                      open,
-                      setOrder,
-                      severity: "success",
-                    }
-                  : {
-                      text: "Lista vazia",
-                      setSnack,
-                      open,
-                      setOrder,
-                      severity: "error",
-                    }
-              );
-              handleOpen();
-              setTimeout(() => {
-                order.length > 0 ? setValueLabel("3") : setValueLabel("1");
-              }, 1300);
-            }}
-            variant="contained"
-            sx={css.button}
-          >
-            <Backdrop
-              color="#fff"
-              sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              open={open}
-              onClick={handleClose}
+          {order.length > 0 && (
+            <ButtonMui
+              onClick={() => {
+                addOrder(order, table, totalPricee);
+                handleClickSnack(
+                  order.length > 0
+                    ? {
+                        text: "Pedido enviado",
+                        setSnack,
+                        open,
+                        setOrder,
+                        severity: "success",
+                      }
+                    : {
+                        text: "Lista vazia",
+                        setSnack,
+                        open,
+                        setOrder,
+                        severity: "error",
+                      }
+                );
+                handleOpen();
+                setTimeout(() => {
+                  setValueLabel("3");
+                }, 1300);
+              }}
+              variant="contained"
+              sx={css.button}
             >
-              <CircularProgress color="inherit" />
-            </Backdrop>
-            Finalizar Pedido
-          </ButtonMui>
+              <Backdrop
+                color="#fff"
+                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+                onClick={handleClose}
+              >
+                <CircularProgress color="inherit" />
+              </Backdrop>
+              Finalizar Pedido
+            </ButtonMui>
+          )}
         </Stack>
       </Box>
     </Box>
