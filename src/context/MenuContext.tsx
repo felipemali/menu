@@ -7,16 +7,6 @@ import { Drink } from "../models/Drink";
 import { SnackProps } from "../models/Snack";
 import { Order } from "../models/Order";
 
-// export type ordersPlaced = {
-//   name: string;
-//   img: string;
-//   price: number;
-//   item: string;
-//   id: number;
-//   qty: number;
-//   table?: string;
-//   totalPrice?: number;
-// };
 export type OrderItem = {
   name: string;
   img: string;
@@ -86,8 +76,8 @@ export const MenuContextProvider = ({ children }: Props) => {
     fetchDrinks();
   }, []);
 
-  console.log("orderPlaced", ordersPlaced);
-  console.log("order", order);
+  // console.log("orderPlaced", ordersPlaced);
+  // console.log("order", order);
 
   return (
     <MenuContext.Provider

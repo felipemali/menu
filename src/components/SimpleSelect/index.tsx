@@ -29,9 +29,10 @@ const SimpleSelect = ({ table, setTable }: Table) => {
         onChange={handleChange}
       >
         {numberTables.map((e, i) => {
-          // const tableExists = orderPlaced.map((order) =>
-          //   order.map((i) => i.some((y)=> y.table === e.trim() ) )
-          // );
+          const tableExists = ordersPlaced.some(
+            (orderGroup) => orderGroup.table === e.trim()
+          );
+
           return (
             <MenuItem
               key={i}
@@ -43,7 +44,7 @@ const SimpleSelect = ({ table, setTable }: Table) => {
                 sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
               >
                 {e.trim()}
-                {/* {tableExists && <WarningIcon color="warning" sx={{ ml: 1 }} />} */}
+                {tableExists && <WarningIcon color="warning" sx={{ ml: 1 }} />}
               </Typography>
             </MenuItem>
           );

@@ -15,7 +15,7 @@ import { Label } from "../../models/Label";
 import { Order } from "../../models/Order";
 
 const Button = ({ setValueLabel, table, totalPricee }: Label) => {
-  const { setSnack, setOrder, setOrdersPlaced, order } =
+  const { setSnack, setOrder, setOrdersPlaced, ordersPlaced, order } =
     useContext(MenuContext);
   const [open, setOpen] = useState(false);
 
@@ -40,11 +40,25 @@ const Button = ({ setValueLabel, table, totalPricee }: Label) => {
       totalPrice: totalPricee,
     };
 
-    setOrdersPlaced((prevOrderPlaced: any) => [
-      ...prevOrderPlaced,
-      newOrderGroup,
-    ]);
+    const orderExist: OrderGroup | undefined = ordersPlaced.find(
+      (order) => order.table === table
+    );
+    console.log(orderExist);
+    if (orderExist) {
+      // const newOrder = [...orderExist.items, newOrderGroup];
+      const newOrder = orderExist.items.push(...order);
+
+      console.log(newOrder);
+
+      // setOrdersPlaced((prevOrderPlaced: any) => [...prevOrderPlaced, newOrder]);
+    } else {
+      setOrdersPlaced((prevOrderPlaced: any) => [
+        ...prevOrderPlaced,
+        newOrderGroup,
+      ]);
+    }
   };
+
   // console.log("orderWithProperties", newOrderGroup);
 
   return (
