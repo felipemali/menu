@@ -23,7 +23,33 @@ self.addEventListener("fetch", (event) => {
       if (response) {
         return response;
       }
-      return fetch(event.request);
+      // Fetch from network
+      return fetch(event.request)
+        .then((response) => {
+          // Check if we received a valid response
+          if (
+            !response ||
+            response.status !== 200 ||
+            response.type !== "basic"
+          ) {
+            return response;
+          }
+          // Clone the response as we need to use it twice
+          const responseToCache = response.clone();
+          // Put the response in cache
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+          return response;
+        })
+        .catch((error) => {
+          console.error("Fetch failed:", error);
+          // You can customize the fallback response here
+          return new Response("Failed to fetch", {
+            status: 500,
+            statusText: "Internal Server Error",
+          });
+        });
     })
   );
 });
