@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import Menu from "../../components/Menu";
 import PlaceOrders from "../../components/PlaceOrders";
@@ -12,9 +12,9 @@ const Home = () => {
       <Header />
       <PlaceOrders setValueLabel={setValueLabel} />
       <Menu valueLabel={valueLabel} setValueLabel={setValueLabel} />
-      <Link to="/admin">
+      {/* <Link to="/admin">
         <button>next</button>
-      </Link>
+      </Link> */}
     </>
   );
 };
