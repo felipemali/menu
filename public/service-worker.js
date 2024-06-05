@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = "my-app-cache";
+const CACHE_NAME = "my-app-cache-v1"; // Versão do cache
 const urlsToCache = [
   "/",
   "/index.html",
@@ -20,36 +20,54 @@ self.addEventListener("install", (event) => {
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
+      // Retorna do cache se encontrado
       if (response) {
         return response;
       }
-      // Fetch from network
+
+      // Caso contrário, busca na rede
       return fetch(event.request)
-        .then((response) => {
-          // Check if we received a valid response
+        .then((networkResponse) => {
+          // Verifica se a resposta é válida
           if (
-            !response ||
-            response.status !== 200 ||
-            response.type !== "basic"
+            !networkResponse ||
+            networkResponse.status !== 200 ||
+            networkResponse.type !== "basic"
           ) {
-            return response;
+            return networkResponse;
           }
-          // Clone the response as we need to use it twice
-          const responseToCache = response.clone();
-          // Put the response in cache
+
+          // Clona a resposta e a coloca no cache
+          const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, responseToCache);
           });
-          return response;
+
+          return networkResponse;
         })
         .catch((error) => {
           console.error("Fetch failed:", error);
-          // You can customize the fallback response here
+          // Responde com uma mensagem de erro
           return new Response("Failed to fetch", {
             status: 500,
             statusText: "Internal Server Error",
           });
         });
+    })
+  );
+});
+
+// Limpa caches antigos
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
     })
   );
 });
