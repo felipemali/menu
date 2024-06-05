@@ -32,7 +32,7 @@
     "qty": 1
   },
   {
-    "name": "x-Salada",
+    "name": "X-salada",
     "img": "https://assets.unileversolutions.com/recipes-v2/106684.jpg",
     "price": 10.0,
     "item": "tomate, cebola, mussarela, presunto",
@@ -40,7 +40,7 @@
     "qty": 1
   },
   {
-    "name": "x-Egg",
+    "name": "X-egg",
     "img": "http://1.bp.blogspot.com/-PuRDP1_yODc/UYhKtSMlkBI/AAAAAAAAA3k/Y3wAYJLBrzo/s1600/como+fazer+x-egg.jpg",
     "price": 12.0,
     "item": "tomate, cebola, mussarela, presunto",
@@ -48,7 +48,7 @@
     "qty": 1
   },
   {
-    "name": "x-Burguer",
+    "name": "X-burguer",
     "img": "https://loja.barracadoze.com.br/wp-content/uploads/sites/5/2020/10/x-burguer.png",
     "price": 12.0,
     "item": "tomate, cebola, mussarela, presunto",

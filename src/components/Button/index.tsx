@@ -13,6 +13,7 @@ import { handleClickSnack } from "../../hooks/handleClickSnack";
 import { css } from "./css";
 import { Label } from "../../models/Label";
 import { Order } from "../../models/Order";
+import { useOrderResume } from "../../hooks/useOrderResume";
 
 const Button = ({ setValueLabel, table, totalPricee }: Label) => {
   const { setSnack, setOrder, setOrdersPlaced, ordersPlaced, order } =
@@ -37,23 +38,53 @@ const Button = ({ setValueLabel, table, totalPricee }: Label) => {
     const newOrderGroup: OrderGroup = {
       items: order,
       table: table,
-      totalPrice: totalPricee,
+      totalPrice: 0,
     };
 
-    const orderExist: OrderGroup | undefined = ordersPlaced.find(
-      (order) => order.table === table
+    // Verificar se já existe uma ordem com a mesma mesa
+    const existingOrderGroupIndex = ordersPlaced.findIndex(
+      (orderGroup) => orderGroup.table === table
     );
-    console.log(orderExist);
-    if (orderExist) {
-      // const newOrder = [...orderExist.items, newOrderGroup];
-      const newOrder = orderExist.items.push(...order);
 
-      console.log(newOrder);
+    if (existingOrderGroupIndex !== -1) {
+      // Ordem existente encontrada
+      const existingOrderGroup = ordersPlaced[existingOrderGroupIndex];
 
-      // setOrdersPlaced((prevOrderPlaced: any) => [...prevOrderPlaced, newOrder]);
+      order.forEach((newItem) => {
+        const existingItem = existingOrderGroup.items.find(
+          (item) => item.id === newItem.id
+        );
+
+        if (existingItem) {
+          // Incrementar a quantidade do item existente
+          existingItem.qty += newItem.qty;
+        } else {
+          // Adicionar novo item à ordem existente
+          existingOrderGroup.items.push(newItem);
+        }
+      });
+      // Recalcular o totalPrice da ordem existente
+      existingOrderGroup.totalPrice = existingOrderGroup.items.reduce(
+        (total, item) => total + item.price * item.qty,
+        0
+      );
+
+      // Atualizar o estado com a ordem modificada
+      setOrdersPlaced((prevOrdersPlaced) => {
+        const updatedOrdersPlaced = [...prevOrdersPlaced];
+        updatedOrdersPlaced[existingOrderGroupIndex] = existingOrderGroup;
+        return updatedOrdersPlaced;
+      });
     } else {
-      setOrdersPlaced((prevOrderPlaced: any) => [
-        ...prevOrderPlaced,
+      // Calcular o totalPrice para a nova ordem
+      newOrderGroup.totalPrice = order.reduce(
+        (total, item) => total + item.price * item.qty,
+        0
+      );
+
+      // Não existe uma ordem com a mesma mesa, adicionar uma nova
+      setOrdersPlaced((prevOrdersPlaced) => [
+        ...prevOrdersPlaced,
         newOrderGroup,
       ]);
     }

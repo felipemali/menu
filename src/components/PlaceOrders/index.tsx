@@ -50,7 +50,7 @@ const PlaceOrders = ({ setValueLabel }: Label) => {
               <ListItemText
                 sx={{ size: "2rem", p: 0.2 }}
                 primary={
-                  <Typography component="span" variant="inherit" fontSize={17}>
+                  <Typography component="span" fontSize={17}>
                     {e.qty} - {e.name}
                     <br />
                   </Typography>
@@ -79,7 +79,11 @@ const PlaceOrders = ({ setValueLabel }: Label) => {
             </Typography>
           }
         />
-        <Button table={table} setValueLabel={setValueLabel} totalPricee={totalPrice} />
+        <Button
+          table={table}
+          setValueLabel={setValueLabel}
+          totalPricee={totalPrice}
+        />
       </Box>
       <Box mt={2} width={160} component="div">
         <img width={160} height={200} src={Lanche} alt="Hamburguer" />

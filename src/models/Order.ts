@@ -6,4 +6,5 @@ export type Order = {
   id: number;
   qty: number;
   table?: string;
+  totalPrice: number;
 };
