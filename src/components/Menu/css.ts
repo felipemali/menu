@@ -2,7 +2,7 @@ export const css = {
   container: {
     display: "flex",
     flexDirection: "column",
-    height: "400px",
+    height: "530px",
     overflowY: "auto",
   },
   appBar: {
