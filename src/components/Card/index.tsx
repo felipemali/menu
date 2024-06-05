@@ -18,7 +18,7 @@ type CardProps = {
 const Card = memo(({ items, idItems }: CardProps) => {
   console.log("componente renderizado");
 
-  const { name, price, item, img } = items;
+  const { name, price, img } = items;
   const { snack, setSnack, order, setOrder } = useContext(MenuContext);
 
   return (
@@ -74,15 +74,6 @@ const Card = memo(({ items, idItems }: CardProps) => {
           </Stack>
         </Box>
       </Box>
-      <Typography
-        p="12px 0 8px 8px"
-        textAlign="left"
-        color="#fff"
-        component="div"
-        variant="body1"
-      >
-        {item}
-      </Typography>
     </Box>
   );
 });

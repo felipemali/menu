@@ -4,6 +4,7 @@ export let css = {
     flexGrow: 1,
     typography: "body1",
     borderBottom: "4px solid #000",
+    paddingBottom: "1rem",
   },
   img: {
     marginLeft: "0.6rem",
@@ -22,7 +23,8 @@ export let css = {
     background: "#fa942e",
     color: "#fff",
     borderRadius: "30px",
-    boxShadow: "0 0 15px #fff",
+    border: "1.5px solid #fff",
+
     mt: 1.5,
     "&:focus": {
       backgroundColor: "#fa942e",

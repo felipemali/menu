@@ -62,11 +62,18 @@ const PlaceOrders = ({ setValueLabel }: Label) => {
         <ListItemText
           sx={css.list}
           primary={
-            <Typography component="span" variant="inherit" fontSize={17}>
+            <Typography
+              component="span"
+              variant="inherit"
+              fontSize={19}
+              color="#353434"
+              fontWeight={600}
+            >
               {`Total: `}
               <Typography color="#008000" fontSize={19} component="span">
                 {`${totalPrice}R$`}
               </Typography>
+
               <br />
             </Typography>
           }
