@@ -2,12 +2,12 @@ import { Accordion, AccordionDetails, Box, Typography } from "@mui/material/";
 
 import { MenuContext } from "../../context/MenuContext";
 import { useContext } from "react";
-import { useOrderResume } from "../../hooks/useOrderResume";
+// import { useOrderResume } from "../../hooks/useOrderResume";
 
 const ArccodionOrder = () => {
   const { ordersPlaced } = useContext(MenuContext);
 
-  const totalPrice = useOrderResume(ordersPlaced);
+  // const totalPrice = useOrderResume(ordersPlaced);
   return (
     <Box>
       {ordersPlaced.map((orderGroup, arrayIndex) => (
