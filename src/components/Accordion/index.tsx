@@ -3,7 +3,7 @@ import { Accordion, AccordionDetails, Box, Typography } from "@mui/material/";
 import { MenuContext } from "../../context/MenuContext";
 import { useContext } from "react";
 // import { useOrderResume } from "../../hooks/useOrderResume";
-
+//teste
 const ArccodionOrder = () => {
   const { ordersPlaced } = useContext(MenuContext);
 
