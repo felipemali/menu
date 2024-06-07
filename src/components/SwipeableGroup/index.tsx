@@ -1,29 +1,35 @@
 import { useSwipeable } from "react-swipeable";
 import { Accordion, AccordionDetails, Box, Typography } from "@mui/material";
 import { OrderGroup } from "../../context/MenuContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type SwipeableGroupType = {
   onFinalize: (value: OrderGroup) => void;
   orderGroup: OrderGroup;
 };
+
 const SwipeableGroup = ({ orderGroup, onFinalize }: SwipeableGroupType) => {
+  const [translateX, setTranslateX] = useState(0);
+  const [isSwiping, setIsSwiping] = useState(false);
   const classlist = document.body.classList;
+
   const handlers = useSwipeable({
-    onSwipedLeft: () => {
-      onFinalize(orderGroup);
-      classlist.remove("no-scroll"); // Remove no-scroll after swipe action
+    onSwiping: (eventData) => {
+      setTranslateX(eventData.deltaX);
+      setIsSwiping(true);
+      classlist.add("no-scroll");
     },
-    onSwiping: () => {
-      classlist.add("no-scroll"); // Add no-scroll during swipe action
-    },
-    onSwiped: () => {
-      classlist.remove("no-scroll"); // Ensure no-scroll is removed after swipe action
+    onSwiped: (eventData) => {
+      if (eventData.dir === "Left" && eventData.velocity > 0.5) {
+        onFinalize(orderGroup);
+      }
+      setTranslateX(0);
+      setIsSwiping(false);
+      classlist.remove("no-scroll");
     },
     trackMouse: true,
   });
 
-  // Clean up no-scroll class on component unmount
   useEffect(() => {
     return () => {
       classlist.remove("no-scroll");
@@ -34,46 +40,31 @@ const SwipeableGroup = ({ orderGroup, onFinalize }: SwipeableGroupType) => {
     <Accordion
       sx={{
         mt: 2,
-        width: "100%",
-        p: 0,
-        // background: "linear-gradient(420deg, #252424 10%, #807a7af8 95%)",
-        boxShadow:
-          "0 -2px 15px rgba(0, 0, 0, 0.25), 10px 6px 166px rgba(0, 0, 0, 0.22)",
+        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
         borderRadius: "10px",
-        transition: "transform 0.3s ease-in-out",
-        background: "linear-gradient(90deg, #220e03f8 8%, #4d1f04f8 95%)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        transform: `translateX(${translateX}px)`,
+        ...(isSwiping && {
+          boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+        }),
         "&:hover": {
-          transform: "scale(1.02)",
+          transform: `scale(1.02) translateX(${translateX}px)`,
         },
         "& .MuiAccordionSummary-root": {
-          backgroundColor: "#FFFFFF", // White for contrast
-          color: "#220e03", // Dark brown for text
+          backgroundColor: "#FFFFFF",
+          color: "#220e03",
         },
         "& .MuiAccordionDetails-root": {
-          backgroundColor: "#FF4500", // Golden Yellow for details
-          color: "#4d1f04", // Darker text color
+          backgroundColor: "#FF4500",
+          color: "#4d1f04",
         },
       }}
       {...handlers}
     >
-      <AccordionDetails
-        sx={{
-          textAlign: "left",
-          width: "95%",
-          flexGrow: 1,
-          typography: "body1",
-          // borderBottom: "4px solid #000",
-          paddingBottom: "1rem",
-          // boxShadow: "0px -2px 15px #807f7f",
-          transition: "box-shadow 0.3s ease-in-out",
-          borderRadius: "10px",
-          // background: "#46200cf8",
-        }}
-      >
+      <AccordionDetails sx={{ textAlign: "left" }}>
         {orderGroup.table && (
           <Typography
             variant="h5"
-            // color="#dd842a"
             color="#fff"
             fontWeight={600}
             component="p"
@@ -90,8 +81,7 @@ const SwipeableGroup = ({ orderGroup, onFinalize }: SwipeableGroupType) => {
               variant="inherit"
               component="span"
               fontSize={19}
-              // color="#474646"
-              color="#fff"
+              color="#FFFFFF"
             >
               {item.qty === 0 ? "" : item.qty}
               {item.qty === 0 ? "" : "- "}
@@ -106,15 +96,13 @@ const SwipeableGroup = ({ orderGroup, onFinalize }: SwipeableGroupType) => {
               variant="inherit"
               component="span"
               fontSize={19}
-              // color="#474646"
-              color="#fff"
+              color="#FFFFFF"
             >{`Total:`}</Typography>
             <Typography
               variant="inherit"
               ml={0.5}
               component="span"
-              fontSize={22}
-              // color="#1fb11f"
+              fontSize={19}
               color="#fff"
             >
               {orderGroup.totalPrice}R$

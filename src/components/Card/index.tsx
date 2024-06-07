@@ -1,7 +1,5 @@
 import { memo, useContext } from "react";
-
 import { Button, Stack, Typography, Box } from "@mui/material";
-
 import SimpleSnackbar from "../SimpleSnackbar";
 import { Food } from "../../models/Food";
 import { Drink } from "../../models/Drink";
