@@ -6,14 +6,24 @@ import {
 } from "../../context/MenuContext";
 import { useContext } from "react";
 import SwipeableGroup from "../SwipeableGroup";
+import { handleClickSnack } from "../../hooks/handleClickSnack";
+import SimpleSnackbar from "../SimpleSnackbar";
 
 const ArccodionOrder = () => {
-  const { ordersPlaced, setOrdersPlaced } = useContext(MenuContext);
+  const { ordersPlaced, snack, setOrdersPlaced, setSnack, setOrder } =
+    useContext(MenuContext);
 
   const handleFinalize = (orderGroup: OrderGroup) => {
     setOrdersPlaced((prevItems: OrdersPlaced) =>
       prevItems.filter((group) => group !== orderGroup)
     );
+    handleClickSnack({
+      text: "Comanda finalizada com Sucesso",
+      setSnack,
+      openn: true,
+      setOrder,
+      severity: "success",
+    });
   };
 
   return (
@@ -25,6 +35,13 @@ const ArccodionOrder = () => {
           onFinalize={handleFinalize}
         />
       ))}
+      {snack.status && (
+        <SimpleSnackbar
+          status={snack.status}
+          description={snack.description}
+          severity={snack.severity}
+        />
+      )}
     </Box>
   );
 };

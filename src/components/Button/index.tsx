@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 
 import { MenuContext, OrderGroup, OrderItem } from "../../context/MenuContext";
-import { handleClickSnack } from "../../hooks/handleClickSnack";
 import { css } from "./css";
 
 type ButtonType = {
@@ -18,7 +17,7 @@ type ButtonType = {
   setTable: (value: string) => void;
 };
 const Button = ({ setValueLabel, table, setTable }: ButtonType) => {
-  const { setSnack, setOrder, setOrdersPlaced, ordersPlaced, order } =
+  const { setOrdersPlaced, ordersPlaced, order, setOrder } =
     useContext(MenuContext);
   const [open, setOpen] = useState(false);
 
@@ -98,26 +97,10 @@ const Button = ({ setValueLabel, table, setTable }: ButtonType) => {
             <ButtonMui
               onClick={() => {
                 addOrder(order, table);
-                handleClickSnack(
-                  order.length > 0
-                    ? {
-                        text: "Pedido enviado",
-                        setSnack,
-                        open,
-                        setOrder,
-                        severity: "success",
-                      }
-                    : {
-                        text: "Lista vazia",
-                        setSnack,
-                        open,
-                        setOrder,
-                        severity: "error",
-                      }
-                );
                 handleOpen();
                 setTimeout(() => {
                   setValueLabel("3");
+                  setOrder([]);
                 }, 1300);
               }}
               variant="contained"

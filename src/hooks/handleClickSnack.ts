@@ -23,7 +23,7 @@ export const handleClickSnack = ({
     setTimeout(() => {
       setSnack({
         status: false,
-        description: text,
+        description: "",
         severity,
       });
     }, 1300);
@@ -46,7 +46,7 @@ export const handleClickSnack = ({
     setTimeout(() => {
       setSnack({
         status: false,
-        description: text,
+        description: "",
         severity,
       });
     }, 2800);
