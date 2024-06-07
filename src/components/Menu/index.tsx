@@ -9,9 +9,12 @@ import { MenuContext } from "../../context/MenuContext";
 import { Drink } from "../../models/Drink";
 import { css } from "./css";
 import ArccodionOrder from "../Accordion";
-import { Label } from "../../models/Label";
 
-const Menu = ({ valueLabel, setValueLabel }: Label) => {
+type MenuType = {
+  valueLabel: string | undefined;
+  setValueLabel: (value: string) => void;
+};
+const Menu = ({ valueLabel, setValueLabel }: MenuType) => {
   const { foods, drinks, ordersPlaced } = useContext(MenuContext);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {

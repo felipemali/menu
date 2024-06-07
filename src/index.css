@@ -7,11 +7,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #eee;
-
   display: flex;
   flex-direction: column;
 }
-
+body.no-scroll {
+  overflow: hidden;
+}
 @media (min-width: 2001px) {
   body {
     margin: auto;

@@ -12,9 +12,6 @@ const Home = () => {
       <Header />
       <PlaceOrders setValueLabel={setValueLabel} />
       <Menu valueLabel={valueLabel} setValueLabel={setValueLabel} />
-      {/* <Link to="/admin">
-        <button>next</button>
-      </Link> */}
     </>
   );
 };

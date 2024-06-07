@@ -16,9 +16,12 @@ import SimpleSelect from "../SimpleSelect";
 import { MenuContext } from "../../context/MenuContext";
 import { useOrderResume } from "../../hooks/useOrderResume";
 import { css } from "./css";
-import { Label } from "../../models/Label";
 
-const PlaceOrders = ({ setValueLabel }: Label) => {
+const PlaceOrders = ({
+  setValueLabel,
+}: {
+  setValueLabel: (value: string) => void;
+}) => {
   const { order, setOrder } = useContext(MenuContext);
   const [table, setTable] = useState("");
 
@@ -43,12 +46,15 @@ const PlaceOrders = ({ setValueLabel }: Label) => {
             disablePadding
           >
             <ListItemButton
-              sx={{ borderBottom: "1px solid #b6b4b4" }}
+              sx={{
+                borderBottom: "1px solid #b6b4b4",
+                padding: "0.2rem 0.5rem",
+              }}
               role={undefined}
               dense
             >
               <ListItemText
-                sx={{ size: "2rem", p: 0.2 }}
+                sx={{ size: "2rem" }}
                 primary={
                   <Typography component="span" fontSize={17}>
                     {e.qty} - {e.name}
@@ -87,9 +93,9 @@ const PlaceOrders = ({ setValueLabel }: Label) => {
           }
         />
         <Button
+          setTable={setTable}
           table={table}
           setValueLabel={setValueLabel}
-          totalPricee={totalPrice}
         />
       </Box>
       <Box mt={2} width={160} component="div">

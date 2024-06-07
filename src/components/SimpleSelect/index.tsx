@@ -11,6 +11,7 @@ type Table = {
 
 const SimpleSelect = ({ table, setTable }: Table) => {
   const numberTables = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
   const { ordersPlaced } = useContext(MenuContext);
 
   const handleChange = (event: SelectChangeEvent) => {

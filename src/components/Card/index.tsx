@@ -48,7 +48,7 @@ const Card = memo(({ items, idItems }: CardProps) => {
           <Typography sx={css.typoPrice} component="span">
             {price}
           </Typography>
-          <Stack spacing={2} width={140} ml={4}>
+          <Stack spacing={2} width={140} ml={window.innerWidth <= 350 ? 1 : 4}>
             <Box mb={2}></Box>
             <Button
               onClick={() => {

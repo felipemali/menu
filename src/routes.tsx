@@ -13,10 +13,10 @@ const routes: RouteObject[] = [
     path: "/admin",
     element: <Admin />,
   },
-  {
-    path: "/teste",
-    element: <ArccodionOrder />,
-  },
+  // {
+  //   path: "/teste",
+  //   element: <ArccodionOrder />,
+  // },
   {
     path: "/orders",
     element: <Orders />,

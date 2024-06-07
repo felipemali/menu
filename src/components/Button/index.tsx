@@ -11,11 +11,13 @@ import {
 import { MenuContext, OrderGroup, OrderItem } from "../../context/MenuContext";
 import { handleClickSnack } from "../../hooks/handleClickSnack";
 import { css } from "./css";
-import { Label } from "../../models/Label";
-import { Order } from "../../models/Order";
-import { useOrderResume } from "../../hooks/useOrderResume";
 
-const Button = ({ setValueLabel, table, totalPricee }: Label) => {
+type ButtonType = {
+  setValueLabel: (value: string) => void;
+  table?: string;
+  setTable: (value: string) => void;
+};
+const Button = ({ setValueLabel, table, setTable }: ButtonType) => {
   const { setSnack, setOrder, setOrdersPlaced, ordersPlaced, order } =
     useContext(MenuContext);
   const [open, setOpen] = useState(false);
@@ -30,11 +32,7 @@ const Button = ({ setValueLabel, table, totalPricee }: Label) => {
     setOpen(true);
   };
 
-  const addOrder = (
-    order: OrderItem[],
-    table: string | undefined,
-    totalPricee: number | undefined
-  ) => {
+  const addOrder = (order: OrderItem[], table: string | undefined) => {
     const newOrderGroup: OrderGroup = {
       items: order,
       table: table,
@@ -43,7 +41,7 @@ const Button = ({ setValueLabel, table, totalPricee }: Label) => {
 
     // Verificar se já existe uma ordem com a mesma mesa
     const existingOrderGroupIndex = ordersPlaced.findIndex(
-      (orderGroup) => orderGroup.table === table
+      (orderGroup) => orderGroup.table === table && orderGroup.table !== ""
     );
 
     if (existingOrderGroupIndex !== -1) {
@@ -75,6 +73,7 @@ const Button = ({ setValueLabel, table, totalPricee }: Label) => {
         updatedOrdersPlaced[existingOrderGroupIndex] = existingOrderGroup;
         return updatedOrdersPlaced;
       });
+      setTable("");
     } else {
       // Calcular o totalPrice para a nova ordem
       newOrderGroup.totalPrice = order.reduce(
@@ -87,10 +86,9 @@ const Button = ({ setValueLabel, table, totalPricee }: Label) => {
         ...prevOrdersPlaced,
         newOrderGroup,
       ]);
+      setTable("");
     }
   };
-
-  // console.log("orderWithProperties", newOrderGroup);
 
   return (
     <Box display="flex" alignItems="center">
@@ -99,7 +97,7 @@ const Button = ({ setValueLabel, table, totalPricee }: Label) => {
           {order.length > 0 && (
             <ButtonMui
               onClick={() => {
-                addOrder(order, table, totalPricee);
+                addOrder(order, table);
                 handleClickSnack(
                   order.length > 0
                     ? {

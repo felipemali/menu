@@ -6,7 +6,7 @@ export let css = {
   },
   box: {
     width: "100%",
-    borderRadius: '10px 10px',
+    borderRadius: "10px 10px",
     m: "10px auto 25px 0.3rem",
     background: "#F5F5DC",
     boxShadow: "0 10px 20px rgba(0, 0, 0, 0.25), 0 6px 6px rgba(0, 0, 0, 0.22)",
