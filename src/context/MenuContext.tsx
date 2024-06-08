@@ -1,7 +1,9 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 
-import foodsData from "../helpers/foods.json";
-import drinksData from "../helpers/drinks.json";
+// import foodsData from "../helpers/foods";
+import { foodss } from "../helpers/foods";
+
+import { drinkss } from "../helpers/drinks";
 import { Food } from "../models/Food";
 import { Drink } from "../models/Drink";
 import { SnackProps } from "../models/Snack";
@@ -70,8 +72,8 @@ export const MenuContextProvider = ({ children }: Props) => {
   const [ordersPlaced, setOrdersPlaced] = useState<OrdersPlaced>([]);
 
   useEffect(() => {
-    const fetchFoods = () => setFoods(foodsData as Food[]);
-    const fetchDrinks = () => setDrinks(drinksData as Drink[]);
+    const fetchFoods = () => setFoods(foodss as Food[]);
+    const fetchDrinks = () => setDrinks(drinkss as Drink[]);
     fetchFoods();
     fetchDrinks();
   }, []);
