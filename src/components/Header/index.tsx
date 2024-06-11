@@ -10,9 +10,9 @@ const handleRefreshClick = () => {
 const Header = () => {
   return (
     <Box flexGrow={1}>
-      <AppBar position="static" sx={css.appBar}>
+      <AppBar position="fixed" sx={css.appBar}>
         <Toolbar>
-          <IconButton size="large" edge="start" color="warning" sx={{ mr: 2 }}>
+          <IconButton size="large" edge="start" color="warning">
             <DrawerList />
           </IconButton>
           <Typography
@@ -25,7 +25,7 @@ const Header = () => {
             Cardápio
           </Typography>
 
-          <div>
+          <Box>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -33,11 +33,10 @@ const Header = () => {
               aria-haspopup="true"
               onClick={handleRefreshClick}
               color="warning"
-              sx={{ mr: 3 }}
             >
               <Fastfood fontSize="inherit" />
             </IconButton>
-          </div>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>

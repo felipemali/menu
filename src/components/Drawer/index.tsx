@@ -20,9 +20,6 @@ import {
 import { Link } from "react-router-dom";
 import { useStyles } from "./css";
 
-
-
-
 const DrawerList = () => {
   type Anchor = "top" | "left" | "bottom" | "right";
 
@@ -51,7 +48,9 @@ const DrawerList = () => {
 
   const list = (anchor: Anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{
+        width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+      }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}

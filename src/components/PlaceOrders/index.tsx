@@ -33,14 +33,88 @@ const PlaceOrders = ({
   const totalPrice = useOrderResume(order);
 
   return (
-    <Box display="flex" justifyContent="space-around" width="100%">
-      <Box sx={css.box}>
+    // <Box display="flex" justifyContent="space-around" width="100%">
+    //   <Box sx={css.box}>
+    //     {order.map((e, i: number) => (
+    //       <ListItem
+    //         key={i}
+    //         secondaryAction={
+    //           <ListItemIcon>
+    //             <Delete sx={{ pl: 4 }} onClick={handleToggle(e.id)} />
+    //           </ListItemIcon>
+    //         }
+    //         disablePadding
+    //       >
+    //         <ListItemButton
+    //           sx={{
+    //             borderBottom: "1px solid #b6b4b4",
+    //             padding: "0.2rem 0.5rem",
+    //           }}
+    //           role={undefined}
+    //           dense
+    //         >
+    //           <ListItemText
+    //             sx={{ size: "2rem" }}
+    //             primary={
+    //               <Typography component="span" fontSize={17} color="blue">
+    //                 {e.qty} - {e.name}
+    //                 <br />
+    //               </Typography>
+    //             }
+    //           />
+    //         </ListItemButton>
+    //       </ListItem>
+    //     ))}
+    //     <ListItemText
+    //       sx={css.list}
+    //       primary={
+    //         <Typography
+    //           component="span"
+    //           variant="inherit"
+    //           fontSize={19}
+    //           color="#353434"
+    //           fontWeight={600}
+    //         >
+    //           {`Total: `}
+    //           <Typography color="#008000" fontSize={19} component="span">
+    //             {`${totalPrice}R$`}
+    //           </Typography>
+
+    //           <br />
+    //         </Typography>
+    //       }
+    //     />
+    //     <ListItemText
+    //       sx={css.list}
+    //       primary={
+    //         <Typography component="span" variant="inherit" fontSize={17}>
+    //           <SimpleSelect setTable={setTable} table={table} />
+    //         </Typography>
+    //       }
+    //     />
+    //     <Button
+    //       setTable={setTable}
+    //       table={table}
+    //       setValueLabel={setValueLabel}
+    //     />
+    //   </Box>
+    //   <Box mt={2} width={160} component="div">
+    //     <img width={160} height={200} src={Lanche} alt="Hamburguer" />
+    //   </Box>
+    // </Box>
+    <Box width="100%">
+      <Box width="100%">
         {order.map((e, i: number) => (
           <ListItem
+            sx={{ width: "100%", border: "1px solid red" }}
             key={i}
             secondaryAction={
               <ListItemIcon>
-                <Delete sx={{ pl: 4 }} onClick={handleToggle(e.id)} />
+                <Delete
+                  color="error"
+                  sx={{ pl: 4 }}
+                  onClick={handleToggle(e.id)}
+                />
               </ListItemIcon>
             }
             disablePadding
@@ -49,6 +123,7 @@ const PlaceOrders = ({
               sx={{
                 borderBottom: "1px solid #b6b4b4",
                 padding: "0.2rem 0.5rem",
+                width: "100%",
               }}
               role={undefined}
               dense
@@ -68,38 +143,38 @@ const PlaceOrders = ({
         <ListItemText
           sx={css.list}
           primary={
-            <Typography
-              component="span"
-              variant="inherit"
+            <Box
+              display="flex"
+              component="div"
+              alignItems="center"
+              justifyContent="space-evenly"
               fontSize={19}
               color="#353434"
               fontWeight={600}
             >
-              {`Total: `}
               <Typography color="#008000" fontSize={19} component="span">
+                {`Total: `}
                 {`${totalPrice}R$`}
               </Typography>
 
               <br />
-            </Typography>
-          }
-        />
-        <ListItemText
-          sx={css.list}
-          primary={
-            <Typography component="span" variant="inherit" fontSize={17}>
               <SimpleSelect setTable={setTable} table={table} />
-            </Typography>
+            </Box>
           }
         />
+        {/* <ListItemText
+            sx={css.list}
+            primary={
+              <Typography component="span" variant="inherit" fontSize={17}>
+                <SimpleSelect setTable={setTable} table={table} />
+              </Typography>
+            }
+          /> */}
         <Button
           setTable={setTable}
           table={table}
           setValueLabel={setValueLabel}
         />
-      </Box>
-      <Box mt={2} width={160} component="div">
-        <img width={160} height={200} src={Lanche} alt="Hamburguer" />
       </Box>
     </Box>
   );

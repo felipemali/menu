@@ -1,7 +1,6 @@
 export let css = {
   list: {
     textAlign: "left",
-    pl: 2,
     pt: 1,
   },
   box: {

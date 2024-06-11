@@ -2,6 +2,7 @@ export const css = {
   container: {
     display: "flex",
     flexDirection: "column",
+    mt: 10,
   },
   appBar: {
     background: "linear-gradient(90deg, #220e03f8 8%, #4d1f04f8 95%)",
@@ -16,8 +17,8 @@ export const css = {
   contentContainer: {
     background: "linear-gradient(90deg, #220e03f8 8%, #4d1f04f8 95%)",
     borderRadius: "0 0 25px 25px",
-    height: "580px",
-    overflowY: "auto",
+    // height: "580px",
+    // overflowY: "auto",
 
     // paddingTop: "40px",
   },

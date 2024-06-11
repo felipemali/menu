@@ -90,9 +90,9 @@ const Button = ({ setValueLabel, table, setTable }: ButtonType) => {
   };
 
   return (
-    <Box display="flex" alignItems="center">
-      <Box display="block" m="1rem auto 0 0">
-        <Stack spacing={2} width="100%" ml={1}>
+    <Box display="flex" alignItems="center" >
+      <Box display="block" width="100%">
+        <Stack spacing={2} mt={3}>
           {order.length > 0 && (
             <ButtonMui
               onClick={() => {
